@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Michael Hughes - React Portfolio</title>
     <style>
-      /* Basic reset and body styling */
+
       * {
         box-sizing: border-box;
         margin: 0;
@@ -16,7 +16,7 @@
         padding: 20px;
       }
 
-      /* Container for everything */
+
       .portfolio-container {
         max-width: 900px;
         margin: 0 auto;
@@ -26,7 +26,7 @@
         overflow: hidden;
       }
 
-      /* Header / Title */
+
       .portfolio-header {
         background: linear-gradient(135deg, #007acc 0%, #00b4d8 100%);
         color: #fff;
@@ -42,7 +42,7 @@
         margin-top: 10px;
       }
 
-      /* Tabs Navigation */
+
       .tab-buttons {
         display: flex;
         background: #f7f7f7;
@@ -64,7 +64,6 @@
         font-weight: bold;
       }
 
-      /* Tab Content */
       .tab-content {
         display: none;
         padding: 20px;
@@ -74,13 +73,13 @@
         display: block;
       }
 
-      /* Basic fade-in animation */
+
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
       }
 
-      /* Project Cards */
+
       .project-card {
         background: #fafafa;
         border: 1px solid #eee;
@@ -116,16 +115,13 @@
   <body>
     <div id="root"></div>
 
-    <!-- React, ReactDOM, and Babel from CDN -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
 
-    <!-- Your React Code -->
     <script type="text/babel">
       const { useState } = React;
 
-      // Example data for your portfolio. Customize as you wish!
       const portfolioData = [
         {
           tabName: "Data Automation",
