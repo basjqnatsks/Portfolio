@@ -2,33 +2,235 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>React on GitHub Pages (No Install)</title>
+    <title>Michael Hughes - React Portfolio</title>
+    <style>
+      /* Basic reset and body styling */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+        padding: 20px;
+      }
+
+      /* Container for everything */
+      .portfolio-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+      }
+
+      /* Header / Title */
+      .portfolio-header {
+        background: linear-gradient(135deg, #007acc 0%, #00b4d8 100%);
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+      }
+      .portfolio-header h1 {
+        margin: 0;
+        font-size: 2rem;
+        letter-spacing: 1px;
+      }
+      .portfolio-header p {
+        margin-top: 10px;
+      }
+
+      /* Tabs Navigation */
+      .tab-buttons {
+        display: flex;
+        background: #f7f7f7;
+        border-bottom: 2px solid #ddd;
+      }
+      .tab-button {
+        flex: 1;
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .tab-button:hover {
+        background: #eee;
+      }
+      .tab-button.active {
+        background: #fff;
+        border-bottom: 2px solid #007acc;
+        font-weight: bold;
+      }
+
+      /* Tab Content */
+      .tab-content {
+        display: none;
+        padding: 20px;
+        animation: fadeIn 0.4s ease-in-out;
+      }
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Basic fade-in animation */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Project Cards */
+      .project-card {
+        background: #fafafa;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        padding: 15px;
+        transition: box-shadow 0.3s;
+      }
+      .project-card:hover {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+      .project-title {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+        color: #007acc;
+      }
+      .project-link {
+        text-decoration: none;
+        color: #007acc;
+      }
+      .project-link:hover {
+        text-decoration: underline;
+      }
+      .technologies {
+        font-style: italic;
+        color: #555;
+      }
+      .description {
+        margin: 8px 0;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
 
-    <!-- Load React (development versions) from CDN -->
+    <!-- React, ReactDOM, and Babel from CDN -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-
-    <!-- Load Babel so we can use JSX in the browser -->
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
 
-    <!-- Our React code (written in JSX) -->
+    <!-- Your React Code -->
     <script type="text/babel">
-      function App() {
+      const { useState } = React;
+
+      // Example data for your portfolio. Customize as you wish!
+      const portfolioData = [
+        {
+          tabName: "Data Automation",
+          projects: [
+            {
+              title: "O365ImapDownloader",
+              link: "https://github.com/basjqnatsks/O365ImapDownloader",
+              technologies: "Python, IMAP, Outlook (O365)",
+              description: "Automated downloading and parsing of Outlook emails/attachments, accelerating data ingestion."
+            },
+            {
+              title: "SFTP_Client",
+              link: "https://github.com/basjqnatsks/SFTP_Client",
+              technologies: "Python, Paramiko (SFTP)",
+              description: "Secure SFTP client tool to transfer files between enterprise systems, reducing manual overhead."
+            }
+          ]
+        },
+        {
+          tabName: "Performance Tools",
+          projects: [
+            {
+              title: "QuickLines",
+              link: "https://github.com/basjqnatsks/QuickLines",
+              technologies: "C, Python, Shell Scripting",
+              description: "Benchmarked multiple languages for the fastest method to count lines in large text files."
+            },
+            {
+              title: "WebpToPng",
+              link: "https://github.com/basjqnatsks/WebpToPng",
+              technologies: "Python (watchdog), Image Processing",
+              description: "Automatically converts .webp files to .png and notifies the user, streamlining image workflows."
+            }
+          ]
+        },
+        {
+          tabName: "Roblox Game Dev",
+          projects: [
+            {
+              title: "Rbx / Silly-Juice",
+              link: "https://github.com/basjqnatsks/rbx-export",
+              technologies: "Luau (Roblox Lua), Knit Framework",
+              description: "Developed custom Roblox games/modules with performance-focused scripts and secure client-server interactions."
+            }
+          ]
+        }
+      ];
+
+      function Portfolio() {
+        const [activeTab, setActiveTab] = useState(0);
+
         return (
-          <div style={{ fontFamily: 'sans-serif', textAlign: 'center' }}>
-            <h1>Hello from React!</h1>
-            <p>This React app is running entirely from GitHub Pages!</p>
+          <div className="portfolio-container">
+            {/* Header */}
+            <div className="portfolio-header">
+              <h1>Michael Hughes - React Portfolio</h1>
+              <p>Data Engineer & Developer | Kennewick, WA</p>
+            </div>
+
+            {/* Tabs */}
+            <div className="tab-buttons">
+              {portfolioData.map((tab, index) => (
+                <div
+                  key={index}
+                  className={`tab-button ${activeTab === index ? 'active' : ''}`}
+                  onClick={() => setActiveTab(index)}
+                >
+                  {tab.tabName}
+                </div>
+              ))}
+            </div>
+
+            {/* Tab Content */}
+            {portfolioData.map((tab, index) => (
+              <div
+                key={index}
+                className={`tab-content ${activeTab === index ? 'active' : ''}`}
+              >
+                {tab.projects.map((project, i) => (
+                  <div className="project-card" key={i}>
+                    <div className="project-title">
+                      <a
+                        href={project.link}
+                        className="project-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {project.title}
+                      </a>
+                    </div>
+                    <div className="technologies">{project.technologies}</div>
+                    <div className="description">{project.description}</div>
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         );
       }
 
-      // Render <App /> into the #root div
-      const root = ReactDOM.createRoot(document.getElementById('root'));
-      root.render(<App />);
+      function App() {
+        return <Portfolio />;
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
   </body>
 </html>
