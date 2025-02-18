@@ -1,0 +1,6 @@
+{
+  "homepage": "https://your-username.github.io/your-repo-name",
+  "name": "my-portfolio",
+  "version": "0.1.0",
+  // ... the rest of your package.json
+}
