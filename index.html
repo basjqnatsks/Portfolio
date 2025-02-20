@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Michael Hughes - React Portfolio</title>
     <style>
-
+      /* Basic reset and body styling */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -16,7 +16,7 @@
         padding: 20px;
       }
 
-
+      /* Container for everything */
       .portfolio-container {
         max-width: 900px;
         margin: 0 auto;
@@ -26,7 +26,7 @@
         overflow: hidden;
       }
 
-
+      /* Header / Title */
       .portfolio-header {
         background: linear-gradient(135deg, #007acc 0%, #00b4d8 100%);
         color: #fff;
@@ -42,7 +42,7 @@
         margin-top: 10px;
       }
 
-
+      /* Tabs Navigation */
       .tab-buttons {
         display: flex;
         background: #f7f7f7;
@@ -64,6 +64,7 @@
         font-weight: bold;
       }
 
+      /* Tab Content */
       .tab-content {
         display: none;
         padding: 20px;
@@ -73,13 +74,13 @@
         display: block;
       }
 
-
+      /* Basic fade-in animation */
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
       }
 
-
+      /* Project Cards */
       .project-card {
         background: #fafafa;
         border: 1px solid #eee;
@@ -115,28 +116,50 @@
   <body>
     <div id="root"></div>
 
+    <!-- React, ReactDOM, and Babel from CDN -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
 
+    <!-- Your React Code -->
     <script type="text/babel">
       const { useState } = React;
 
+      // Update the data to include SFTP_Client and HouseWatcher
       const portfolioData = [
         {
+          tabName: "Machine Learning",
+          projects: [
+            {
+              title: "Gold Prediction Model",
+              link: "https://github.com/basjqnatsks/Gold-RandomForestClassifier",
+              technologies: "Python, TensorFlow",
+              description:
+                "Comparing 49 commodity industries against Gold, yeilding a 58% next-day accuracy"
+            }
+          ],
           tabName: "Data Automation",
           projects: [
             {
               title: "O365ImapDownloader",
               link: "https://github.com/basjqnatsks/O365ImapDownloader",
               technologies: "Python, IMAP, Outlook (O365)",
-              description: "Automated downloading and parsing of Outlook emails/attachments, accelerating data ingestion."
+              description:
+                "Automated downloading and parsing of Outlook emails/attachments, accelerating data ingestion."
             },
             {
               title: "SFTP_Client",
               link: "https://github.com/basjqnatsks/SFTP_Client",
               technologies: "Python, Paramiko (SFTP)",
-              description: "Secure SFTP client tool to transfer files between enterprise systems, reducing manual overhead."
+              description:
+                "Secure SFTP client tool to transfer files between enterprise systems, reducing manual overhead."
+            },
+            {
+              title: "HouseWatcher",
+              link: "https://github.com/basjqnatsks/HouseWatcher",
+              technologies: "Python",
+              description:
+                "Monitors real estate listings for updates and automates notifications to track property changes in real-time."
             }
           ]
         },
@@ -147,13 +170,15 @@
               title: "QuickLines",
               link: "https://github.com/basjqnatsks/QuickLines",
               technologies: "C, Python, Shell Scripting",
-              description: "Benchmarked multiple languages for the fastest method to count lines in large text files."
+              description:
+                "Benchmarked multiple languages to find the fastest method to count lines in large text files."
             },
             {
               title: "WebpToPng",
               link: "https://github.com/basjqnatsks/WebpToPng",
               technologies: "Python (watchdog), Image Processing",
-              description: "Automatically converts .webp files to .png and notifies the user, streamlining image workflows."
+              description:
+                "Automatically converts .webp files to .png and notifies the user, streamlining image workflows."
             }
           ]
         },
@@ -164,7 +189,8 @@
               title: "Rbx / Silly-Juice",
               link: "https://github.com/basjqnatsks/rbx-export",
               technologies: "Luau (Roblox Lua), Knit Framework",
-              description: "Developed custom Roblox games/modules with performance-focused scripts and secure client-server interactions."
+              description:
+                "Developed custom Roblox experiences with performance-focused scripting, secure client-server interactions, and fun mechanics."
             }
           ]
         }
