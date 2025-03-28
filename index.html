@@ -22,7 +22,7 @@
         margin: 0 auto;
         background: #fff;
         border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         overflow: hidden;
       }
 
@@ -88,9 +88,9 @@
 
       /* Grey out WIP tabs */
       .tab-content.wip {
-        opacity: 0.5; 
-        pointer-events: none; 
-        user-select: none; 
+        opacity: 0.5;
+        pointer-events: none; /* Makes entire tab non-clickable */
+        user-select: none;
       }
 
       /* Project Cards */
@@ -103,7 +103,7 @@
         transition: box-shadow 0.3s;
       }
       .project-card:hover {
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       }
       .project-title {
         font-size: 1.2rem;
@@ -224,7 +224,7 @@
         // 5) Kernel Development (WIP) - grey out
         {
           tabName: "Kernel Development",
-          wip: true,  // We'll use this to dim the tab content.
+          wip: true, // We'll use this to dim the tab content.
           projects: [
             {
               title: "Under Construction",
@@ -284,15 +284,33 @@
                 <div key={index} className={tabClass}>
                   {tab.projects.map((project, i) => (
                     <div className="project-card" key={i}>
-                      {/* If there's a title, show it */}
-                      {project.title && (
-                        <div className="project-title">{project.title}</div>
+                      {/* If there's a link, make the title clickable */}
+                      {project.title && project.link ? (
+                        <div className="project-title">
+                          <a
+                            href={project.link}
+                            className="project-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {project.title}
+                          </a>
+                        </div>
+                      ) : (
+                        // If there's a title but no link, just display text
+                        project.title && (
+                          <div className="project-title">
+                            {project.title}
+                          </div>
+                        )
                       )}
+
                       {/* If there's a technologies field, show it */}
                       {project.technologies && (
                         <div className="technologies">{project.technologies}</div>
                       )}
-                      {/* Description may contain <video> or text */}
+
+                      {/* Description may contain <video> or plain text */}
                       <div className="description">{project.description}</div>
                     </div>
                   ))}
