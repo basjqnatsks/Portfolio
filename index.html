@@ -22,7 +22,7 @@
         margin: 0 auto;
         background: #fff;
         border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         overflow: hidden;
       }
 
@@ -86,6 +86,13 @@
         }
       }
 
+      /* Grey out WIP tabs */
+      .tab-content.wip {
+        opacity: 0.5; 
+        pointer-events: none; 
+        user-select: none; 
+      }
+
       /* Project Cards */
       .project-card {
         background: #fafafa;
@@ -96,7 +103,7 @@
         transition: box-shadow 0.3s;
       }
       .project-card:hover {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       }
       .project-title {
         font-size: 1.2rem;
@@ -131,8 +138,9 @@
     <script type="text/babel">
       const { useState } = React;
 
-      // Tab/project data
+      // 'wip' property indicates we want the tab content greyed out.
       const portfolioData = [
+        // 1) Machine Learning
         {
           tabName: "Machine Learning",
           projects: [
@@ -144,6 +152,30 @@
             }
           ]
         },
+
+        // 2) Recapta Bypass (moved to second place)
+        {
+          tabName: "Recapta Bypass",
+          projects: [
+            {
+              description: (
+                <video
+                  src="./output.mp4" /* must match your MP4 file name */
+                  type="video/mp4"
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  style={{ width: "100%", maxWidth: "600px", borderRadius: "8px" }}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              )
+            }
+          ]
+        },
+
+        // 3) Data Automation
         {
           tabName: "Data Automation",
           projects: [
@@ -164,10 +196,12 @@
               link: "https://github.com/basjqnatsks/HouseWatcher",
               technologies: "Python",
               description:
-                "Monitors congressional equity purchases; notifies real-time changes."
+                "Monitors congressional equity purchases, notifies real-time changes."
             }
           ]
         },
+
+        // 4) Performance Tools
         {
           tabName: "Performance Tools",
           projects: [
@@ -186,18 +220,20 @@
             }
           ]
         },
+
+        // 5) Kernel Development (WIP) - grey out
         {
           tabName: "Kernel Development",
+          wip: true,  // We'll use this to dim the tab content.
           projects: [
             {
-              title: "Kernel Level AntiCheat Security Testing",
-              link: "https://github.com/basjqnatsks/KernelPWDTest",
-              technologies: "C/C++, AMD Driver",
-              description:
-                "Uses AMD PWDSYS driver for kernel elevation, disabling Windows PatchGuard."
+              title: "Under Construction",
+              description: "This kernel dev section is still in progress. Check back soon!"
             }
           ]
         },
+
+        // 6) Roblox Game Dev
         {
           tabName: "Roblox Game Dev",
           projects: [
@@ -206,27 +242,6 @@
               link: "https://github.com/basjqnatsks/rbxl-export",
               technologies: "Luau (Roblox Lua), Python",
               description: "Custom Roblox file exporter."
-            }
-          ]
-        },
-        // A new tab that ONLY shows a locally hosted MP4 video
-        {
-          tabName: "Recapta Bypass",
-          projects: [
-            {
-              description: (
-                <video
-                  src="./output.mp4"
-                  type="video/mp4"
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  style={{ width: "100%", maxWidth: "600px", borderRadius: "8px" }}
-                >
-                  Your browser does not support the video tag.
-                </video>
-              )
             }
           ]
         }
@@ -257,27 +272,33 @@
             </div>
 
             {/* Tab Content */}
-            {portfolioData.map((tab, index) => (
-              <div
-                key={index}
-                className={`tab-content ${activeTab === index ? 'active' : ''}`}
-              >
-                {tab.projects.map((project, i) => (
-                  <div className="project-card" key={i}>
-                    {/* If there's a title, show it */}
-                    {project.title && (
-                      <div className="project-title">{project.title}</div>
-                    )}
-                    {/* If there's a technologies field, show it */}
-                    {project.technologies && (
-                      <div className="technologies">{project.technologies}</div>
-                    )}
-                    {/* Description contains the <video> or text */}
-                    <div className="description">{project.description}</div>
-                  </div>
-                ))}
-              </div>
-            ))}
+            {portfolioData.map((tab, index) => {
+              // We'll add .wip class if the tab's 'wip' flag is true
+              const tabClass = [
+                "tab-content",
+                activeTab === index ? "active" : "",
+                tab.wip ? "wip" : ""
+              ].join(" ");
+
+              return (
+                <div key={index} className={tabClass}>
+                  {tab.projects.map((project, i) => (
+                    <div className="project-card" key={i}>
+                      {/* If there's a title, show it */}
+                      {project.title && (
+                        <div className="project-title">{project.title}</div>
+                      )}
+                      {/* If there's a technologies field, show it */}
+                      {project.technologies && (
+                        <div className="technologies">{project.technologies}</div>
+                      )}
+                      {/* Description may contain <video> or text */}
+                      <div className="description">{project.description}</div>
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
           </div>
         );
       }
