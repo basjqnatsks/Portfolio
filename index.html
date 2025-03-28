@@ -22,7 +22,7 @@
         margin: 0 auto;
         background: #fff;
         border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         overflow: hidden;
       }
 
@@ -76,8 +76,14 @@
 
       /* Basic fade-in animation */
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       /* Project Cards */
@@ -90,7 +96,7 @@
         transition: box-shadow 0.3s;
       }
       .project-card:hover {
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       }
       .project-title {
         font-size: 1.2rem;
@@ -125,9 +131,8 @@
     <script type="text/babel">
       const { useState } = React;
 
-      // Update the data to include SFTP_Client and HouseWatcher
+      // Tab/project data
       const portfolioData = [
-
         {
           tabName: "Machine Learning",
           projects: [
@@ -135,14 +140,10 @@
               title: "Gold Prediction Model",
               link: "https://github.com/basjqnatsks/Gold-RandomForestClassifier",
               technologies: "Python, SCIKITLEARN",
-              description:
-                "Comparing 49 commodity industries against Gold"
+              description: "Comparing 49 commodity industries against Gold."
             }
-          ],
+          ]
         },
-
-
-
         {
           tabName: "Data Automation",
           projects: [
@@ -150,22 +151,20 @@
               title: "O365ImapDownloader",
               link: "https://github.com/basjqnatsks/O365ImapDownloader",
               technologies: "Python, IMAP, Outlook (O365)",
-              description:
-                "Automated downloading and parsing of Outlook emails/attachments, accelerating data ingestion."
+              description: "Automated downloading/parsing of Outlook attachments."
             },
             {
               title: "SFTP_Client",
               link: "https://github.com/basjqnatsks/SFTP_Client",
               technologies: "Python, Paramiko (SFTP)",
-              description:
-                "Secure SFTP client tool to transfer files between enterprise systems"
+              description: "Secure SFTP client tool for enterprise file transfers."
             },
             {
               title: "HouseWatcher",
               link: "https://github.com/basjqnatsks/HouseWatcher",
               technologies: "Python",
               description:
-                "Monitors congressional equity purchases and automates notifications to track changes in real-time"
+                "Monitors congressional equity purchases; notifies real-time changes."
             }
           ]
         },
@@ -177,19 +176,16 @@
               link: "https://github.com/basjqnatsks/QuickLines",
               technologies: "C, Python, Shell Scripting",
               description:
-                "Benchmarked multiple languages to find the fastest method to count lines in large text files."
+                "Benchmarking various languages to count lines in large text files."
             },
             {
               title: "WebpToPng",
               link: "https://github.com/basjqnatsks/WebpToPng",
-              technologies: "Python (watchdog), Image Processing",
-              description:
-                "Automatically converts .webp files to .png and notifies the user, streamlining image workflows."
+              technologies: "Python (watchdog)",
+              description: "Automatically converts .webp to .png for workflows."
             }
           ]
         },
-
-
         {
           tabName: "Kernel Development",
           projects: [
@@ -198,18 +194,10 @@
               link: "https://github.com/basjqnatsks/KernelPWDTest",
               technologies: "C/C++, AMD Driver",
               description:
-                "Uses AMD PWDSYS driver for kernel elevation, and disabling Windows PatchGuard"
+                "Uses AMD PWDSYS driver for kernel elevation, disabling Windows PatchGuard."
             }
-          ],
+          ]
         },
-
-
-
-
-
-
-
-
         {
           tabName: "Roblox Game Dev",
           projects: [
@@ -217,8 +205,28 @@
               title: "Rbx-Export",
               link: "https://github.com/basjqnatsks/rbxl-export",
               technologies: "Luau (Roblox Lua), Python",
-              description:
-                "Developed custom Roblox file exporter."
+              description: "Custom Roblox file exporter."
+            }
+          ]
+        },
+        // A new tab that ONLY shows a locally hosted MP4 video
+        {
+          tabName: "Recapta Bypass",
+          projects: [
+            {
+              description: (
+                <video
+                  src="./output.mp4"
+                  type="video/mp4"
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  style={{ width: "100%", maxWidth: "600px", borderRadius: "8px" }}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              )
             }
           ]
         }
@@ -256,17 +264,15 @@
               >
                 {tab.projects.map((project, i) => (
                   <div className="project-card" key={i}>
-                    <div className="project-title">
-                      <a
-                        href={project.link}
-                        className="project-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {project.title}
-                      </a>
-                    </div>
-                    <div className="technologies">{project.technologies}</div>
+                    {/* If there's a title, show it */}
+                    {project.title && (
+                      <div className="project-title">{project.title}</div>
+                    )}
+                    {/* If there's a technologies field, show it */}
+                    {project.technologies && (
+                      <div className="technologies">{project.technologies}</div>
+                    )}
+                    {/* Description contains the <video> or text */}
                     <div className="description">{project.description}</div>
                   </div>
                 ))}
